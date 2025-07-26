@@ -4,4 +4,4 @@ auth_bp = Blueprint('auth',__name__)
 
 @auth_bp.post('/register')
 def registration():
-    return jsonify({"message: User Created"})
+    return jsonify({"message" : "User Created"})
