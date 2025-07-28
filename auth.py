@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from models import User
-from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt
 
 auth_bp = Blueprint('auth',__name__)
 
@@ -9,7 +9,7 @@ def registration_user():
     data = request.get_json()
     user = User.get_user_by_username(username=data.get('username'))
     if user is not None:
-        return jsonify({"error":"USer already exists"}), 409
+        return jsonify({"error":"User already exists"}), 409
     
     new_user = User(
         username= data.get('username'),
@@ -36,3 +36,10 @@ def login_user():
         }), 200
     
     return jsonify({"error" : "Invalid username or password"}), 400
+
+
+@auth_bp.get('/whoami')
+def whoami():
+    claims = get_jwt()
+    return jsonify({"claims" : claims})
+    
