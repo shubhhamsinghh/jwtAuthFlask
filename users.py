@@ -23,4 +23,4 @@ def get_all_users():
         return jsonify({
             "users" : result
         }), 200
-    return jsonify({"message":"You are not authorize to access this"}), 401
+    return jsonify({"message":"You are not authorize to access this end-point"}), 401
